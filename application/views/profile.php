@@ -12,7 +12,6 @@
  <div class="container mt-5">
     <div class="row">
         <div class="col-md-5">
-    <?php include "components/signupForm.php"; ?>
           
         </div>
         <!-- close col-md-5 -->

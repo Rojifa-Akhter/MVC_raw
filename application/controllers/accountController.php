@@ -47,7 +47,14 @@ class accountController extends framework
 
         // If there are no errors, submit the form
         if (empty($userData['fullNameError']) && empty($userData['emailError']) && empty($userData['passwordError'])) {
-            echo "Form submitted";
+            $password = password_hash($userData['password'], PASSWORD_DEFAULT);
+            $data = [$userData['fullName'],$userData['email'], $password];
+            if ($this->accountModel->createAccount($data)) {
+
+                $this->setFlash("accountCreated", "Your account has been created successfully" );
+                // $this->setSession("userId",5);
+                $this->redirect("accountController/loginForm");
+            }
         } else {
             // Pass the data to the view
             $this->view('signup', $userData);
@@ -57,6 +64,35 @@ class accountController extends framework
     public function loginForm()
     {
         $this->view("login");
+    }
+    public function userLogin(){
+        $userData = [
+            'email' => $this->input('email'),
+            'password' => $this->input('password'),
+            'emailError'=> '',
+            'passwordError' => ''
+        ];
+        if (empty($userData['email'])) {
+            $userData['emailError'] = "Email is required";
+        }
+        if (empty($userData['password'])) {
+            $userData['passwordError'] = "Password is required";
+        }
+        if (empty($userData['emailError']) && empty($userData['passwordError'])) {
+            $result = $this->accountModel->userLogin($userData['email'], $userData['password']);
+            if ($result['status']==="emailNotFound") {
+                $userData['emailError'] = "Sorry invalid email";
+                $this->view("login",$userData);
+            }else if ($result['status'] === "passwordNotMatched") {
+                $userData["passwordError"] = "Sorry invalid password";
+                $this->view("login", $userData);
+            }else if ($result['status'] === "ok") {
+                $this->setSession("userId",$result['data']);
+                $this->redirect("profileController");
+            }
+        }else{
+            $this->view("login",$userData);
+        }
     }
 }
 

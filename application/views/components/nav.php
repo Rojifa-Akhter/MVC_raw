@@ -11,16 +11,20 @@
             <span class="visually-hidden">(current)</span>
           </a>
         </li>
+        <?php if (! $this->getSession('userId')): ?>
         <li class="nav-item">
           <a class="nav-link" href="<?php echo BASE_URL; ?>/accountController">Register</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="<?php echo BASE_URL; ?>/accountController/loginForm">Login</a>
         </li>
-     
-       
+     <?php endif; ?>
+
       </ul>
-     
+      <?php if ($this->getSession('userId')): ?>
+      <ul class="my-2 my-lg-0">
+        <a href="<?php echo BASE_URL; ?>/profileController/logout" class="btn btn-success">Logout</a></ul>
+      <?php endif; ?>
     </div>
   </div>
 </nav>

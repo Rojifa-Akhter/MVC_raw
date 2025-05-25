@@ -10,6 +10,30 @@ class accountModel extends database{
             }
         }
     }
+     public function createAccount($data){
+        if ($this->Query("INSERT INTO users (fullName,email,password) VALUES (?,?,?)",$data)) {
+            // echo "";
+            return true;
+        }
+    }
+    public function userLogin($email,$password){
+        if ($this->Query("SELECT * FROM users WHERE email=?",[$email])) {
+            
+            if ($this->rowCount() >0) {
+                $row = $this->fetch();
+                $dbPassword = $row->password;
+                $userId = $row->id;
+                if (password_verify($password, $dbPassword)) {
+                    
+                    return ['status'=> "ok", 'data' =>$userId];
+                }else{
+                    return ['status' => "passwordNotMatched"];
+                }
+            }else{
+                return ['status' => "emailNotFound"];
+            }
+        }
+    }
 
 }
 ?>

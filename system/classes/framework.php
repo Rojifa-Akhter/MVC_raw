@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 class framework
 {
     public function view($viewName, $data = [])
@@ -24,7 +25,6 @@ class framework
     {
         if ($_SERVER['REQUEST_METHOD'] == "POST" || $_SERVER['REQUEST_METHOD'] == 'post') {
             return trim(strip_tags($_POST[$inputName]));
-
         } else if ($_SERVER['REQUEST_METHOD'] == "GET" || $_SERVER['REQUEST_METHOD'] == 'get') {
             return trim(strip_tags($_GET[$inputName]));
         }
@@ -38,5 +38,53 @@ class framework
                 Sorry helper $helperName.php file not found</div>";
         }
     }
+    //set session
+    public function setSession($sessionName, $sessionValue)
+    {
+        if (!empty($sessionName) && !empty($sessionValue)) {
+            $_SESSION[$sessionName] = $sessionValue;
+        }
+    }
+    //get session
+    public function getSession($sessionName)
+    {
+        if (!empty($sessionName)) {
+            return $_SESSION[$sessionName];
+        }
+    }
+    //unset session
+    public function unsetSession($sessionName)
+    {
+        if (!empty($sessionName)) {
+            unset($_SESSION[$sessionName]);
+        }
+    }
+    //destroy all session
+    public function destroy()
+    {
+        session_destroy();
+    }
+    //set flash message
+    public function setFlash($sessionName, $msg)
+    {
+        if (!empty($sessionName) && !empty($msg)) {
+            return $_SESSION[$sessionName] = $msg;
+        }
+    }
+    //show flash message
+    public function flash($sessionName, $className)
+    {
+        if (!empty($sessionName) && !empty($className) && isset
+        ($_SESSION[$sessionName])) {
 
+            $msg = $_SESSION[$sessionName];
+
+            echo "<div class='" . $className . "'>'" . $msg . "'</div>";
+            unset($_SESSION[$sessionName]);
+        }
+    }
+    public function redirect($path)
+    {
+        header("location:" . BASE_URL . "/".$path);
+    }
 }

@@ -7,5 +7,5 @@ define("DATABASE","mvcdb");
 define("PASSWORD","");
 
 //Base URL
-define("BASE_URL","http://localhost:90/TicketingSystem")
+define("BASE_URL","http://localhost:90/MVC_PHP_FRAMEWORK")
 ?>

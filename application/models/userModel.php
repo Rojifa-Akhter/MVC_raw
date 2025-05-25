@@ -29,5 +29,6 @@ class userModel extends database{
             return false;
         }
     }
+   
 }
 ?>
