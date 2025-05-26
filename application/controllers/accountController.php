@@ -6,6 +6,9 @@ class accountController extends framework
 
     public function __construct()
     {
+        if ($this->getSession('userId')) {
+            $this->redirect("profileController");
+        }
         $this->helper("link");
         $this->accountModel = $this->model("accountModel");  // Dynamically load the model
     }
