@@ -7,7 +7,7 @@
     <div class="collapse navbar-collapse" id="navbarColor01">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link active" href="#">Home
+          <a class="nav-link active" href="<?php echo BASE_URL; ?>/profileController">Home
             <span class="visually-hidden">(current)</span>
           </a>
         </li>
@@ -17,6 +17,10 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="<?php echo BASE_URL; ?>/accountController/loginForm">Login</a>
+        </li>
+        <?php else:?>
+           <li class="nav-item">
+          <a class="nav-link" href="<?php echo BASE_URL; ?>/profileController/fruitForm">Add Fruit</a>
         </li>
      <?php endif; ?>
 

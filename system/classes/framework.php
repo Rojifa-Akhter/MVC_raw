@@ -41,21 +41,21 @@ class framework
     //set session
     public function setSession($sessionName, $sessionValue)
     {
-        if (!empty($sessionName) && !empty($sessionValue)) {
+        if (! empty($sessionName) && ! empty($sessionValue)) {
             $_SESSION[$sessionName] = $sessionValue;
         }
     }
     //get session
     public function getSession($sessionName)
     {
-        if (!empty($sessionName)) {
+        if (! empty($sessionName)) {
             return $_SESSION[$sessionName];
         }
     }
     //unset session
     public function unsetSession($sessionName)
     {
-        if (!empty($sessionName)) {
+        if (! empty($sessionName)) {
             unset($_SESSION[$sessionName]);
         }
     }
@@ -67,24 +67,22 @@ class framework
     //set flash message
     public function setFlash($sessionName, $msg)
     {
-        if (!empty($sessionName) && !empty($msg)) {
+        if (! empty($sessionName) && ! empty($msg)) {
             return $_SESSION[$sessionName] = $msg;
         }
     }
     //show flash message
     public function flash($sessionName, $className)
     {
-        if (!empty($sessionName) && !empty($className) && isset
-        ($_SESSION[$sessionName])) {
-
+        if (! empty($sessionName) && ! empty($className) && isset($_SESSION[$sessionName])) {
             $msg = $_SESSION[$sessionName];
-
-            echo "<div class='" . $className . "'>'" . $msg . "'</div>";
+            echo "<div class='" . $className . "'>" . $msg . "</div>";
             unset($_SESSION[$sessionName]);
         }
     }
+
     public function redirect($path)
     {
-        header("location:" . BASE_URL . "/".$path);
+        header("location:" . BASE_URL . "/" . $path);
     }
 }
